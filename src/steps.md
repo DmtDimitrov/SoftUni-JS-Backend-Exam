@@ -1,10 +1,10 @@
 # Project Scaffold
 
 [x] Install dependencies
-[] Index - create and start (express) applications
-[] Create folder structure
-[] Create Express Config
-[] Create Handlebars Config
+[x] Index - create and start (express) applications
+[x] Create folder structure
+[x] Create Express and Handlebars Config
+[x] Create Constants Config
 [] Create Database Config
 [] Create Global error handler
 [] Create Middlewares (body- parser, static files)

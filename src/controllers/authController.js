@@ -7,7 +7,7 @@ router.get('/register', (req, res) => {
     res.render('auth/register', { title: 'Register' });
 });
 
-router.post('/register', async(req, res) => {
+router.post('/register', async(req, res, next) => {
     //TODO: adapt parameters to project requirements
     //TODO: extra validations
     const { name, username, password, repeatPassword } = req.body;
@@ -19,15 +19,15 @@ router.post('/register', async(req, res) => {
     };
 
     try {
-        await authService.register({ name, username, password });
+        let createdUser = await authService.register({ name, username, password });
 
         // TODO: to login if necessary
-
+        console.log(createdUser);
+        console.log(createdUser);
         res.redirect('/auth/login');
     } catch (err) {
         // TODO: return error response
-        console.log(err);
-        res.end();
+        next(err);
     }
 });
 
@@ -57,6 +57,12 @@ router.post('/login', async(req, res) => {
     }
 });
 
+
+router.get('/logout', (req, res) => {
+    res.clearCookie(COOKIE_NAME);
+
+    res.redirect('/auth/login');
+});
 
 
 module.exports = router;

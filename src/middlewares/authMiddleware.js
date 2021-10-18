@@ -8,6 +8,7 @@ exports.authMiddleware = async function(req, res, next) {
         try {
             let decodedToken = await jwt.verify(token, TOKEN_SECRET);
             req.user = decodedToken;
+            res.locals.user = decodedToken;
             next();
         } catch (error) {
             console.log(error);

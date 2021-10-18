@@ -2,13 +2,20 @@ const express = require('express');
 
 const { PORT } = require('./constants');
 const routes = require('./routes');
-const expressConfig = require('./config/express.js');
-
+const { expressConfig, handlebarsConfig } = require('./config/express.js');
+const { databaseConfig } = require('./config/database.js');
 
 const app = express();
 
+handlebarsConfig(app);
 expressConfig(app);
 app.use(routes);
 
-
-app.listen(PORT, () => console.log(`The app is running on http://localhost:${PORT}/...`));
+databaseConfig()
+    .then(() => {
+        console.log('Database connected');
+        app.listen(PORT, () => console.log(`App is running on http://localhost:${PORT}.../`));
+    })
+    .catch(err => {
+        console.log('Database is not connected:', err);
+    });

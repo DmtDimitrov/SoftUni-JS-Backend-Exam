@@ -11,7 +11,7 @@ router.post('/register', async(req, res, next) => {
     //TODO: adapt parameters to project requirements
     //TODO: extra validations
     const { name, username, password, repeatPassword } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     if (password !== repeatPassword) {
         res.locals.error = 'Passwords do not match!'
@@ -19,12 +19,15 @@ router.post('/register', async(req, res, next) => {
     };
 
     try {
-        let createdUser = await authService.register({ name, username, password });
+        await authService.register({ name, username, password });
+        // let createdUser = await authService.register({ name, username, password });
+        // res.redirect('/auth/login');
 
         // TODO: to login if necessary
-        console.log(createdUser);
-        console.log(createdUser);
-        res.redirect('/auth/login');
+
+        let token = await authService.login({ username, password });
+        res.cookie(COOKIE_NAME, token, { httpOnly: true });
+        res.redirect('/');
     } catch (err) {
         // TODO: return error response
         next(err);

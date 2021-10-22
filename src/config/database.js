@@ -7,8 +7,8 @@ const { DB_URI } = require('../constants');
 //     console.log('Database connected');
 // };
 
-exports.databaseConfig = function() {
-    return mongoose.connect(DB_URI);
+exports.databaseConfig = function () {
+	return mongoose.connect(DB_URI);
 };
 
 // module.exports = databaseConfig;

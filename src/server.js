@@ -13,12 +13,11 @@ expressConfig(app);
 app.use(routes);
 app.use(errorHandler);
 
-
 databaseConfig()
-    .then(() => {
-        console.log('Database connected');
-        app.listen(PORT, () => console.log(`App is running on http://localhost:${PORT}/`));
-    })
-    .catch(err => {
-        console.log('Database is not connected:', err);
-    });
+	.then(() => {
+		console.log('Database connected');
+		app.listen(PORT, () => console.log(`App is running on http://localhost:${PORT}/`));
+	})
+	.catch((err) => {
+		console.log('Database is not connected:', err);
+	});

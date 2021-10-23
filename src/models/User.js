@@ -7,14 +7,17 @@ const userSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: [true, 'Name is required!'],
+		validate: [/^[a-z]+\s[a-z ]+$/i, 'Name should contain First name and Last name!'],
 	},
 	username: {
 		type: String,
 		required: [true, 'Username is required!'],
+		minlength: [5, 'Username should be more than 5 characters!'],
 	},
 	password: {
 		type: String,
 		required: [true, 'Password is required!'],
+		minlength: [4, 'Password should be more than 5 characters!'],
 	},
 });
 

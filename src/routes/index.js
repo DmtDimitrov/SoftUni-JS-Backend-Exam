@@ -6,6 +6,7 @@ const errorController = require('../controllers/errorController.js');
 
 router.use(homeController);
 router.use('/auth', authController);
+router.use('/housing', housingController);
 router.use(errorController);
 
 module.exports = router;

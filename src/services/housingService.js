@@ -1,46 +1,77 @@
-const Housing = require('../models/Housing.js'); // import model according to project requirements
+// const Housing = require('../models/Housing');
 
-exports.create = (data) => {
-	Housing.create(data);
-};
+// exports.create = async (data) => {
+// 	try {
+// 		return await Housing.create(data);
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
 
-exports.getAll = () => {
-	Housing.find().lean();
-};
+// exports.getTopItems = async () => {
+// 	try {
+// 		return await Housing.find().sort({ createdAt: -1 }).limit(3).lean();
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
 
-exports.getTopHouses = () => {
-	Housing.find().sort({ createdAt: -1 }).limit(3).lean();
-};
+// exports.getAllItems = async () => {
+// 	try {
+// 		return await Housing.find().lean();
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
 
-exports.getOne = (itemId) => {
-	Housing.findById(itemId).populate('tenants');
-};
+// exports.getOne = async (id) => {
+// 	try {
+// 		return await Housing.findById(id).populate('rentedHome');
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
 
-exports.addTenant = (itemId, tenantId) => {
-	// let housing = await housingService.getOne(req.params.housingId);
+// exports.addTenant = async (housing, tenantId) => {
+// 	try {
+// 		housing.rentedHome.push(tenantId);
+// 		housing.availablePieces = housing.availablePieces - 1;
+// 		let updatedHousing = await housing.save();
+// 		return updatedHousing;
+// 	} catch (error) {
+// 		throw error;
+// 	}
 
-	// housing.tenants.push(req.user._id);
+// 	// return Housing.findOneAndUpdate(
+// 	// 	{ _id: housingId },
+// 	// 	{
+// 	// 		$push: { rentedHome: tenantId },
+// 	// 		$inc: { availablePieces: -1 },
+// 	// 	},
+// 	// 	{ runValidators: true }
+// 	// );
+// };
 
-	// return housing.save();
+// exports.updateOne = async (houseId, houseData) => {
+// 	try {
+// 		return await Housing.findByIdAndUpdate(houseId, houseData);
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
 
-	return Housing.findOneAndUpdate(
-		{ _id: itemId },
-		{
-			$push: { tenants: tenantId },
-			$inc: { availablePieces: -1 },
-		},
-		{ runValidators: true }
-	);
-};
+// exports.deleteOne = async (houseId) => {
+// 	try {
+// 		return await Housing.findByIdAndDelete(houseId);
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };
 
-exports.delete = (itemId) => {
-	Housing.findByIdAndDelete(itemId);
-};
-
-exports.updateOne = (itemId, data) => {
-	Housing.findByIdAndUpdate(itemId, data);
-};
-
-exports.search = (searchedText) => {
-	Housing.find({ type: { $regex: searchedText, $options: 'i' } }).lean();
-};
+// exports.search = async (searchedText) => {
+// 	try {
+// 		return await Housing.find({ type: { $regex: searchedText, $options: 'i' } }).lean();
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };

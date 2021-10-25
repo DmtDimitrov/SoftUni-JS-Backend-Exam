@@ -3,6 +3,7 @@ const router = require('express').Router();
 const authService = require('../services/authService.js');
 const { COOKIE_NAME } = require('../constants');
 const { getErrorMessage } = require('../utils');
+const { isGuest, isUser } = require('../routes/guards.js');
 
 router.get('/register', (req, res) => {
 	res.render('auth/register', { title: 'Register' });
@@ -14,12 +15,11 @@ router.post('/register', async (req, res, next) => {
 	const { name, username, password, repeatPassword } = req.body;
 	// console.log(req.body);
 
-	if (password !== repeatPassword) {
-		res.locals.error = 'Passwords do not match!';
-		return res.render('auth/register', { error: getErrorMessage(error) });
-	}
-
 	try {
+		if (password !== repeatPassword) {
+			throw 'Passwords do not match!';
+		}
+
 		await authService.register({ name, username, password });
 
 		// TODO: to login if necessary

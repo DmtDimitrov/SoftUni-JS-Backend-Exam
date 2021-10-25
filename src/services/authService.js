@@ -19,13 +19,13 @@ exports.login = async (userData, next) => {
 		let user = await User.findOne({ username });
 
 		if (!user) {
-			throw new Error('Invalid username or password');
+			throw 'Invalid username or password';
 		}
 
 		let isValid = await user.validatePassword(password);
 
 		if (!isValid) {
-			throw new Error('Invalid username or password');
+			throw 'Invalid username or password';
 		}
 
 		//TODO: create token

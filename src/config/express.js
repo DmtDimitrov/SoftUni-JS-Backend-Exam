@@ -21,5 +21,4 @@ exports.expressConfig = function (app) {
 	app.use(express.urlencoded({ extended: true }));
 	app.use(cookieParser());
 	app.use(authMiddleware);
-	//TODO: add storage middlewares
 };

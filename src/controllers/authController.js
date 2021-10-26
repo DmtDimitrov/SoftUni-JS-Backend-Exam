@@ -42,8 +42,6 @@ router.post('/login', isGuest, async (req, res) => {
 	try {
 		let token = await authService.login({ username, password });
 
-		// console.log(`controller token: ${token}`);
-
 		//TODO: set token in httpOnly cookie
 
 		res.cookie(COOKIE_NAME, token, { httpOnly: true });
@@ -59,5 +57,19 @@ router.get('/logout', isUser, (req, res) => {
 
 	res.redirect('/auth/login');
 });
+
+// router.get('/:userId/profile', async (req, res) => {
+// 	try {
+// 		let user = await authService.getUser(req.params.userId);
+
+// 		let enrolledCourses = user.getCourses();
+
+// 		res.render('auth/profile', { title: 'My profile', enrolledCourses });
+// 	} catch (error) {
+// 		res.render('auth/profile', { error: getErrorMessage(error) });
+// 	}
+// });
+
+module.exports = router;
 
 module.exports = router;

@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 	try {
 		let housings = await housingService.getAll();
 
-		res.render('housing', { housings });
+		res.render('housing', { title: 'Home', housings });
 	} catch (error) {
 		res.render('housing', { error: getErrorMessage(error) });
 	}
@@ -44,6 +44,7 @@ router.get('/:housingId/details', async (req, res) => {
 		let isRentedByYou = housing.tenants.some((x) => x._id == req.user?._id);
 
 		res.render('housing/details', {
+			title: 'Home',
 			...housingData,
 			isOwner,
 			tenants,
@@ -75,7 +76,7 @@ router.get('/:housingId/edit', isOwner, async (req, res) => {
 		let housing = await housingService.getOne(housingId);
 		let housingData = housing.toObject();
 
-		res.render(`housing/edit`, { ...housingData });
+		res.render(`housing/edit`, { title: 'Home', ...housingData });
 	} catch (error) {
 		res.render(`housing/${housingId}/edit`, { error: getErrorMessage(error) });
 	}

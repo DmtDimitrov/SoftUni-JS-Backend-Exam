@@ -35,6 +35,10 @@ userSchema.method('validatePassword', function (password) {
 	return bcrypt.compare(password, this.password);
 });
 
+// userSchema.method('getCourses', function () {
+//     return this.enrolledCourses.map((x) => x.title).join(', ');
+// });
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

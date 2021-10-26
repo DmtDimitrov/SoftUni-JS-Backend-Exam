@@ -14,3 +14,15 @@ exports.getErrorMessage = function (error) {
 		return errorMsg;
 	}
 };
+
+exports.extractRequestData = function(req){
+	let { title, description, imageUrl, isPublic } = req.body;
+	//TODO: adapt parameters to project requirements
+	let data = {
+		title,
+		description,
+		imageUrl,
+		isPublic: Boolean(isPublic),
+	};
+	return data;
+};

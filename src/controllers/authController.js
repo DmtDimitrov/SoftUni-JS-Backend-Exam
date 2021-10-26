@@ -5,11 +5,11 @@ const { COOKIE_NAME } = require('../constants');
 const { getErrorMessage } = require('../utils');
 const { isGuest, isUser } = require('../routes/guards.js');
 
-router.get('/register', (req, res) => {
+router.get('/register', isGuest, (req, res) => {
 	res.render('auth/register', { title: 'Register' });
 });
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', isGuest, async (req, res, next) => {
 	//TODO: adapt parameters to project requirements
 	//TODO: extra validations
 	const { name, username, password, repeatPassword } = req.body;
@@ -32,11 +32,11 @@ router.post('/register', async (req, res, next) => {
 	}
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', isGuest, (req, res) => {
 	res.render('auth/login', { title: 'Login' });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', isGuest, async (req, res) => {
 	const { username, password } = req.body;
 
 	try {
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', isUser, (req, res) => {
 	res.clearCookie(COOKIE_NAME);
 
 	res.redirect('/auth/login');

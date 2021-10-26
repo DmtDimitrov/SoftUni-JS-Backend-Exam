@@ -1,119 +1,119 @@
-// const router = require('express').Router();
+const router = require('express').Router();
 
-// const { isAuth } = require('../middlewares/authMiddleware.js');
-// const housingService = require('../services/housingService.js');
-// const { getErrorMessage } = require('../utils');
-// const { isGuest, isUser, isNotOwner, isOwner } = require('../routes/guards.js');
+const { isAuth } = require('../middlewares/authMiddleware.js');
+const housingService = require('../services/housingService.js');
+const { getErrorMessage } = require('../utils');
+const { isGuest, isUser, isNotOwner, isOwner } = require('../routes/guards.js');
 
-// router.get('/', async (req, res) => {
-// 	try {
-// 		let housings = await housingService.getAll();
+router.get('/', async (req, res) => {
+	try {
+		let housings = await housingService.getAll();
 
-// 		res.render('housing', { housings });
-// 	} catch (error) {
-// 		res.render('housing', { error: getErrorMessage(error) });
-// 	}
-// });
+		res.render('housing', { housings });
+	} catch (error) {
+		res.render('housing', { error: getErrorMessage(error) });
+	}
+});
 
-// router.get('/create', isUser, (req, res) => {
-// 	res.render('housing/create', { title: 'Create Housing' });
-// });
+router.get('/create', isUser, (req, res) => {
+	res.render('housing/create', { title: 'Create Housing' });
+});
 
-// router.post('/create', isUser, async (req, res) => {
-// 	try {
-// 		await housingService.create({ ...req.body, owner: req.user._id });
+router.post('/create', isUser, async (req, res) => {
+	try {
+		await housingService.create({ ...req.body, owner: req.user._id });
 
-// 		res.redirect('/housing');
-// 	} catch (error) {
-// 		res.render('housing/create', { error: getErrorMessage(error) });
-// 	}
-// });
+		res.redirect('/housing');
+	} catch (error) {
+		res.render('housing/create', { error: getErrorMessage(error) });
+	}
+});
 
-// router.get('/:housingId/details', async (req, res) => {
-// 	try {
-// 		let housing = await housingService.getOne(req.params.housingId);
+router.get('/:housingId/details', async (req, res) => {
+	try {
+		let housing = await housingService.getOne(req.params.housingId);
 
-// 		let tenants = housing.getTenants();
+		let tenants = housing.getTenants();
 
-// 		let housingData = await housing.toObject(); // може да се ползва за инстанциите, вместо да се ползва lean() в query mongoose
+		let housingData = await housing.toObject(); // може да се ползва за инстанциите, вместо да се ползва lean() в query mongoose
 
-// 		let isOwner = housingData.owner == req.user?._id;
+		let isOwner = housingData.owner == req.user?._id;
 
-// 		let isAvailable = housing.availablePieces > 0;
+		let isAvailable = housing.availablePieces > 0;
 
-// 		let isRentedByYou = housing.tenants.some((x) => x._id == req.user?._id);
+		let isRentedByYou = housing.tenants.some((x) => x._id == req.user?._id);
 
-// 		res.render('housing/details', {
-// 			...housingData,
-// 			isOwner,
-// 			tenants,
-// 			isAvailable,
-// 			isRentedByYou,
-// 		});
-// 	} catch (error) {
-// 		res.render('housing/details', { error: getErrorMessage(error) });
-// 	}
-// });
+		res.render('housing/details', {
+			...housingData,
+			isOwner,
+			tenants,
+			isAvailable,
+			isRentedByYou,
+		});
+	} catch (error) {
+		res.render('housing/details', { error: getErrorMessage(error) });
+	}
+});
 
-// router.get('/:housingId/rent', isNotOwner, async (req, res) => {
-// 	try {
-// 		let housingId = req.params.housingId;
-// 		let tenantsId = req.user?._id;
-// 		let housing = await housingService.getOne(housingId);
+router.get('/:housingId/rent', isNotOwner, async (req, res) => {
+	try {
+		let housingId = req.params.housingId;
+		let tenantsId = req.user?._id;
+		let housing = await housingService.getOne(housingId);
 
-// 		await housingService.addTenant(housing, tenantsId);
+		await housingService.addTenant(housing, tenantsId);
 
-// 		res.redirect(`/housing/${req.params.housingId}/details`);
-// 	} catch (error) {
-// 		res.render(`housing/${req.params.housingId}/details`, { error: getErrorMessage(error) });
-// 	}
-// });
+		res.redirect(`/housing/${req.params.housingId}/details`);
+	} catch (error) {
+		res.render(`housing/${req.params.housingId}/details`, { error: getErrorMessage(error) });
+	}
+});
 
-// router.get('/:housingId/edit', isOwner, async (req, res) => {
-// 	try {
-// 		let housingId = req.params.housingId;
-// 		let housing = await housingService.getOne(housingId);
-// 		let housingData = housing.toObject();
+router.get('/:housingId/edit', isOwner, async (req, res) => {
+	try {
+		let housingId = req.params.housingId;
+		let housing = await housingService.getOne(housingId);
+		let housingData = housing.toObject();
 
-// 		res.render(`housing/edit`, { ...housingData });
-// 	} catch (error) {
-// 		res.render(`housing/${housingId}/edit`, { error: getErrorMessage(error) });
-// 	}
-// });
+		res.render(`housing/edit`, { ...housingData });
+	} catch (error) {
+		res.render(`housing/${housingId}/edit`, { error: getErrorMessage(error) });
+	}
+});
 
-// router.post('/:housingId/edit', isOwner, async (req, res) => {
-// 	try {
-// 		let housingId = req.params.housingId;
-// 		let HousingData = req.body;
-// 		await housingService.updateOne(housingId, HousingData);
+router.post('/:housingId/edit', isOwner, async (req, res) => {
+	try {
+		let housingId = req.params.housingId;
+		let HousingData = req.body;
+		await housingService.updateOne(housingId, HousingData);
 
-// 		res.redirect(`/housing/${housingId}/details`);
-// 	} catch (error) {
-// 		res.render(`housing/${housingId}/edit`, { error: getErrorMessage(error) });
-// 	}
-// });
+		res.redirect(`/housing/${housingId}/details`);
+	} catch (error) {
+		res.render(`housing/${housingId}/edit`, { error: getErrorMessage(error) });
+	}
+});
 
-// router.get('/:housingId/delete', isOwner, async (req, res) => {
-// 	try {
-// 		let housingId = req.params.housingId;
-// 		await housingService.deleteOne(housingId);
+router.get('/:housingId/delete', isOwner, async (req, res) => {
+	try {
+		let housingId = req.params.housingId;
+		await housingService.deleteOne(housingId);
 
-// 		res.redirect('/housing');
-// 	} catch (error) {
-// 		res.render(`housing/${housingId}/details`, { error: getErrorMessage(error) });
-// 	}
-// });
+		res.redirect('/housing');
+	} catch (error) {
+		res.render(`housing/${housingId}/details`, { error: getErrorMessage(error) });
+	}
+});
 
-// router.get('/search', async (req, res) => {
-// 	try {
-// 		let searchedText = req.query.searching;
+router.get('/search', async (req, res) => {
+	try {
+		let searchedText = req.query.searching;
 
-// 		let searchedHousing = await housingService.search(searchedText);
+		let searchedHousing = await housingService.search(searchedText);
 
-// 		res.render('housing/search', { title: 'Search', searchedHousing });
-// 	} catch (error) {
-// 		res.render(`housing/search`, { error: getErrorMessage(error) });
-// 	}
-// });
+		res.render('housing/search', { title: 'Search', searchedHousing });
+	} catch (error) {
+		res.render(`housing/search`, { error: getErrorMessage(error) });
+	}
+});
 
-// module.exports = router;
+module.exports = router;

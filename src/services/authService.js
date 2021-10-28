@@ -36,3 +36,13 @@ exports.login = async (userData, next) => {
 		throw error;
 	}
 };
+
+// exports.getUser = async (userId) => {
+// 	//TODO: adapt parameters to project requirements
+// 	try {
+// 		let user = await User.findById(userId).populate('enrolledCourses');
+// 		return user;
+// 	} catch (error) {
+// 		throw error;
+// 	}
+// };

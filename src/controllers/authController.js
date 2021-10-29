@@ -6,12 +6,12 @@ const { getErrorMessage } = require('../utils');
 const { isGuest, isUser } = require('../routes/guards.js');
 
 router.get('/register', isGuest, (req, res) => {
-	res.render('auth/register', { title: 'Register' });
+	res.render('auth/register');
 });
 
 router.post('/register', isGuest, async (req, res, next) => {
 	//TODO: adapt parameters to project requirements
-	//TODO: extra validations
+	//TODO: extra validations if necessary
 	const { name, username, password, repeatPassword } = req.body;
 	// console.log(req.body);
 
@@ -33,7 +33,7 @@ router.post('/register', isGuest, async (req, res, next) => {
 });
 
 router.get('/login', isGuest, (req, res) => {
-	res.render('auth/login', { title: 'Login' });
+	res.render('auth/login');
 });
 
 router.post('/login', isGuest, async (req, res) => {
@@ -69,7 +69,5 @@ router.get('/logout', isUser, (req, res) => {
 // 		res.render('auth/profile', { error: getErrorMessage(error) });
 // 	}
 // });
-
-module.exports = router;
 
 module.exports = router;

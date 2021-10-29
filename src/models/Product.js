@@ -5,10 +5,7 @@ const productSchema = mongoose.Schema(
 		name: {
 			type: String,
 			required: [true, 'Name is required!'],
-		},
-		type: {
-			type: String,
-			required: true,
+			minlength: [4, 'Name should be at least 4 characters'],
 		},
 		year: {
 			type: Number,
@@ -31,19 +28,28 @@ const productSchema = mongoose.Schema(
 			min: [1, 'DifficultyLevel should be between 1 and 6!'],
 			max: [6, 'DifficultyLevel should be between 1 and 6!'],
 		},
+		createdAt: {
+			type: Date,
+			required: true,
+			default: new Date(),
+		},
+		isPublic: {
+			type: Boolean,
+			default: false,
+		},
 		accessories: [
 			{
 				type: mongoose.Types.ObjectId,
 				ref: 'Accessory',
 			},
 		],
-		creator: {
+		owner: {
 			type: mongoose.Types.ObjectId,
 			ref: 'User',
 		},
-		isSomething: {
-			type: Boolean,
-			default: false,
+		owner: {
+			type: String,
+			required: [true, 'Owner is required!'],
 		},
 	}
 	// {
@@ -67,6 +73,14 @@ const productSchema = mongoose.Schema(
 // 	} catch (error) {
 // 		throw error;
 // 	}
+// });
+
+// housingSchema.method('getTenants', function () {
+// 	return this.rentedHome.map((x) => x.name).join(', ');
+// });
+
+// hotelSchema.method('getBookings', function () {
+// 	return this.usersBookedRooms.includes((x) => x.username);
 // });
 
 const Product = mongoose.model('Product', productSchema);

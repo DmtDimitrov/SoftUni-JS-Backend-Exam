@@ -21,7 +21,8 @@ router.get('/create', isUser, (req, res) => {
 
 router.post('/create', isUser, async (req, res) => {
 	try {
-		await housingService.create({ ...req.body, owner: req.user._id });
+		let data = extractRequestData(req);
+		await housingService.create({ data, owner: req.user._id });
 
 		res.redirect('/housing');
 	} catch (error) {
@@ -85,8 +86,10 @@ router.get('/:housingId/edit', isOwner, async (req, res) => {
 router.post('/:housingId/edit', isOwner, async (req, res) => {
 	try {
 		let housingId = req.params.housingId;
-		let HousingData = req.body;
-		await housingService.updateOne(housingId, HousingData);
+
+		let data = extractRequestData(req);
+
+		await housingService.updateOne(housingId, data);
 
 		res.redirect(`/housing/${housingId}/details`);
 	} catch (error) {

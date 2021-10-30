@@ -10,21 +10,17 @@ router.get('/register', isGuest, (req, res) => {
 });
 
 router.post('/register', isGuest, async (req, res, next) => {
-	//TODO: adapt parameters to project requirements
-	//TODO: extra validations if necessary
-	const { name, username, password, repeatPassword } = req.body;
-	// console.log(req.body);
+	const { firstName, lastName, email, password, repeatPassword } = req.body;
+	console.log(req.body);
 
 	try {
 		if (password !== repeatPassword) {
 			throw 'Passwords do not match!';
 		}
 
-		await authService.register({ name, username, password });
+		await authService.register({ firstName, lastName, email, password });
 
-		// TODO: to login if necessary
-
-		let token = await authService.login({ username, password });
+		let token = await authService.login({ email, password });
 		res.cookie(COOKIE_NAME, token, { httpOnly: true });
 		res.redirect('/');
 	} catch (error) {
@@ -37,12 +33,10 @@ router.get('/login', isGuest, (req, res) => {
 });
 
 router.post('/login', isGuest, async (req, res) => {
-	const { username, password } = req.body;
+	const { email, password } = req.body;
 
 	try {
-		let token = await authService.login({ username, password });
-
-		//TODO: set token in httpOnly cookie
+		let token = await authService.login({ email, password });
 
 		res.cookie(COOKIE_NAME, token, { httpOnly: true });
 
@@ -55,19 +49,7 @@ router.post('/login', isGuest, async (req, res) => {
 router.get('/logout', isUser, (req, res) => {
 	res.clearCookie(COOKIE_NAME);
 
-	res.redirect('/auth/login');
+	res.redirect('/');
 });
-
-// router.get('/:userId/profile', async (req, res) => {
-// 	try {
-// 		let user = await authService.getUser(req.params.userId);
-
-// 		let enrolledCourses = user.getCourses();
-
-// 		res.render('auth/profile', { title: 'My profile', enrolledCourses });
-// 	} catch (error) {
-// 		res.render('auth/profile', { error: getErrorMessage(error) });
-// 	}
-// });
 
 module.exports = router;

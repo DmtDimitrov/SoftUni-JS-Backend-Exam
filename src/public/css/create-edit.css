@@ -1,123 +1,52 @@
-main {
-    padding: 2px;
-}
-
-.create-container,
-.edit-container {
-    margin: 3rem auto;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 700px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 40px 0px;
-    padding: .55rem;
-    background: rgb(255, 255, 255);
-}
-
-.box-image {
-    border-radius: 8px;
-    padding-bottom: 35%;
-    background-image: url('../images/house-2026116_1280.png');
+.createSection,
+.editSection {
+    background: url(https://source.unsplash.com/TV2gg2kZD1o/1600x800);
     background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0 75%;
-    position: relative;
-}
-
-.box-heading {
-    position: relative;
-    font-family: 'Raleway';
-    font-size: 2.7rem;
-    margin-top: 0%;
+    background-position: 100% 5%;
+    margin: auto;
+    width: 680px;
+    height: 850px;
+    margin-top: 1rem;
+    left: 35%;
     text-align: center;
-    font-weight: 700;
-    color: #6658d3;
-    line-height: 1.222;
-}
-
-.home-name,
-.year,
-.type,
-.city,
-.availablePieces,
-.description,
-.homeImage {
-    color: #8597a3;
-    position: absolute;
-    font-size: 1.7em;
-    top: 1.4rem;
-    transition: .25s ease;
-}
-
-.home-name,
-.type,
-.year,
-.city,
-.availablePieces,
-.description,
-.homeImage {
-    color: #6658d3;
-    transform: translateY(-1.5rem);
-}
-
-.form {
-    padding: 0.7rem 1rem 0;
-}
-
-.input {
     display: flex;
-    flex-direction: column-reverse;
-    position: relative;
-    padding-top: 1.9rem;
+    color: white;
+    box-shadow: 3px 10px 20px 5px rgba(0, 0, 0, .5);
 }
 
-.input-field {
-    border: 0;
-    z-index: 1;
-    background-color: transparent;
-    border-bottom: 2px solid #eee;
-    font: inherit;
-    font-size: 1.5rem;
-    padding: .25rem 0;
+textarea {
+    resize: none;
 }
 
-.input-field:focus,
-.input-field:valid {
-    outline: 0;
-    border-bottom-color: #6658d3;
+.createForm,
+.editForm {
+    width: 720px;
+    padding: 10px 0;
+    background: rgba(20, 40, 40, .8);
+    transition: .2s;
 }
 
-
-/*
-.full-name,
-.email,
-.password,
-.re-password {
-    color: #6658d3;
-    transform: translateY(-1.5rem);
-}*/
-
-.create-action {
-    margin-top: 0.1rem;
+.createForm>h2,
+.eeditForm>h2 {
+    font-weight: 350;
+    font-size: 27px;
+    margin-bottom: 0.8em;
 }
 
-.create-button {
-    font: inherit;
-    font-size: 1.2rem;
-    padding: 1em;
-    width: 100%;
-    font-weight: 500;
-    background-color: #6658d3;
-    border-radius: 6px;
-    color: #FFF;
-    border: 0;
+#create-btn,
+#edit-btn {
+    border: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(20, 20, 20, .6);
+    font-size: 18px;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 43px;
+    cursor: pointer;
+    transition: .4s;
 }
 
-.create-button:focus {
-    outline: 0;
-}
-
-.create-button:hover {
-    background-color: #5246a8;
+#create-btn:hover,
+#edit-btn:hover {
+    background: rgba(20, 20, 20, .8);
+    padding: 10px 80px;
 }

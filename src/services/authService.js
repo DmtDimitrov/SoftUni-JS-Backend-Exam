@@ -2,7 +2,6 @@ const User = require('../models/User.js');
 const { createToken } = require('./tokenService.js');
 
 exports.register = async (userData) => {
-	//TODO: adapt parameters to project requirements
 	try {
 		await User.create(userData);
 	} catch (error) {
@@ -11,24 +10,21 @@ exports.register = async (userData) => {
 };
 
 exports.login = async (userData, next) => {
-	//TODO: adapt parameters to project requirements
-	//TODO: extra validations?
-	let { username, password } = userData;
+	let { email, password } = userData;
 
 	try {
-		let user = await User.findOne({ username });
+		let user = await User.findOne({ email });
 
 		if (!user) {
-			throw 'Invalid username or password';
+			throw 'Invalid email or password';
 		}
 
 		let isValid = await user.validatePassword(password);
 
 		if (!isValid) {
-			throw 'Invalid username or password';
+			throw 'Invalid email or password';
 		}
 
-		//TODO: create token
 		let token = await createToken(user);
 
 		return token;
@@ -36,13 +32,3 @@ exports.login = async (userData, next) => {
 		throw error;
 	}
 };
-
-// exports.getUser = async (userId) => {
-// 	//TODO: adapt parameters to project requirements
-// 	try {
-// 		let user = await User.findById(userId).populate('enrolledCourses');
-// 		return user;
-// 	} catch (error) {
-// 		throw error;
-// 	}
-// };

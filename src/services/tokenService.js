@@ -6,8 +6,7 @@ exports.createToken = async (user, next) => {
 		//TODO: adapt parameters to project requirements
 		let payload = {
 			_id: user._id,
-			name: user.name,
-			username: user.username,
+			email: user.email,
 		};
 
 		let token = await jwt.sign(payload, TOKEN_SECRET);

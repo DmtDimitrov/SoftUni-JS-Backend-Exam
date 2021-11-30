@@ -1,2 +1,2 @@
-# JS-Backend-Exam-Template
+# SoftUni JS-Backend-Exam
 Exam Preparation
